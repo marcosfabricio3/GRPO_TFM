@@ -1,0 +1,57 @@
+CREATE DATABASE veterinaria
+
+go
+
+USE veterinaria
+
+CREATE TABLE duenio (
+id_duenio int identity (1,1) PRIMARY KEY,
+nombre NVARCHAR(80),
+email NVARCHAR(180)
+);
+
+go
+
+CREATE TABLE mascotas (
+id_mascotas int identity(1,1)PRIMARY KEY,
+nombre NCHAR(80) NOT NULL,
+especie NCHAR(50) NOT NULL,
+nacimiento DATE,
+id_duenio int NOT NULL,
+CONSTRAINT fk_duenio FOREIGN KEY (id_duenio) REFERENCES duenio (id_duenio)
+);
+
+go
+
+INSERT INTO duenio (nombre,email) VALUES
+('Ana Garcia', 'ana@gmail.com'),
+('Luis Perez', 'luis@gmail.com');
+
+INSERT INTO mascotas (nombre,especie,nacimiento, id_duenio) VALUES
+('Rex','perro','2020-03-15',1),
+('Mia','gato','2021-07-01',1),
+('Mejia', 'therian','2021-02-01',2);
+
+SELECT * FROM duenio;
+
+SELECT * FROM mascotas;
+
+SELECT * FROM mascotas
+WHERE especie = 'perro'
+
+SELECT M.nombre AS mascota, M.especie, D.nombre AS duenio
+FROM mascotas M
+JOIN duenio D ON M.id_duenio = D.id_duenio;
+
+SELECT M.nombre AS mascota, M.especie, D.nombre AS duenio
+FROM mascotas M, duenio D
+WHERE M.id_duenio = D.id_duenio
+
+Select top 1 * FROM mascotas
+
+SELECT nombre, ISNULL(email,'sin email') as email
+FROM duenio
+
+SELECT nombre,
+DATEDIFF(DAY, nacimiento, GETDATE()) AS Dias
+FROM mascotas
