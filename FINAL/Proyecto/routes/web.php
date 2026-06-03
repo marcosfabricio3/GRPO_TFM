@@ -27,16 +27,17 @@ Route::middleware('auth')->group(function () {
 
 
 // Rutas protegidas con autenticación
-Route::middleware('auth')->group(function () {});
+Route::middleware('auth')->group(function () {
+    //Socios
+    Route::get('/socios', [SocioController::class, 'index'])->name('socios.index');
+    Route::get('/socios/create', [SocioController::class, 'create'])->name('socios.create');
+    Route::post('/socios', [SocioController::class, 'store'])->name('socios.store');
+    Route::get('/socios/{socio}', [SocioController::class, 'show'])->name('socios.show');
+    Route::get('/socios/{socio}/edit', [SocioController::class, 'edit'])->name('socios.edit');
+    Route::put('/socios/{socio}', [SocioController::class, 'update'])->name('socios.update');
+    Route::delete('/socios/{socio}', [SocioController::class, 'destroy'])->name('socios.destroy');
+
     
-// Socios
-Route::get('/socios', [SocioController::class, 'index'])->name('socios.index');
-Route::get('/socios/create', [SocioController::class, 'create'])->name('socios.create');
-Route::post('/socios', [SocioController::class, 'store'])->name('socios.store');
-Route::get('/socios/{socio}', [SocioController::class, 'show'])->name('socios.show');
-Route::get('/socios/{socio}/edit', [SocioController::class, 'edit'])->name('socios.edit');
-Route::put('/socios/{socio}', [SocioController::class, 'update'])->name('socios.update');
-Route::delete('/socios/{socio}', [SocioController::class, 'destroy'])->name('socios.destroy');
 
 // Membresias
 Route::get('/membresias', [MembresiaController::class, 'index'])->name('membresias.index');
@@ -112,6 +113,6 @@ Route::put("/duenio/{id}", [ControllerDuenio::class, "actualizar"]);
 Route::delete("/duenio/{id}", [ControllerDuenio::class, "eliminar"]);
 
 Route::get("/duenio/resumen", [ControllerDuenio::class, "resumen"]);
-
+});
 
 require __DIR__.'/auth.php';

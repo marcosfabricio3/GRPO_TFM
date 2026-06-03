@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Socios</title>
-</head>
-<body>
-
+@extends('layouts.app')
+@section('title', 'Lista de socios')
+@section('content')
+@section('socio_active', 'link-secondary')
+<x-nav-bar />
     <h1>Lista de Socios</h1>
 
     <a href="{{ route('socios.create') }}">
     Crear Nuevo Socio
     </a>
     <br><br>
-    <table border="1">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>ID</th>
@@ -34,32 +30,22 @@
                     <td>{{ $socio->Email }}</td>
 
                     <td>
-
-                        <a href="{{ route('socios.show', $socio->SocioID) }}">
+                        <div class="btn-group">
+                        <button type="button" class="btn btn-success" 
+                            onclick="window.location='{{ route('socios.show', $socio->SocioID) }}'">
                             Ver
-                        </a>
-
-                        <a href="{{ route('socios.edit', $socio->SocioID) }}">
+                        </button>
+                        <button type="button" class="btn btn-warning"
+                            onclick="window.location='{{ route('socios.edit', $socio->SocioID) }}'">
                             Editar
-                        </a>
-
-                        <form action="{{ route('socios.destroy', $socio->SocioID) }}"
-                              method="POST"
-                              style="display:inline">
-
-                            @csrf
-                            @method('DELETE')
-
-                            <button type="submit"
-                                    onclick="return confirm('¿Quieres eliminar este socio?')">
-
-                                Eliminar
-                            </button>
-                        </form>
+                        </button>
+                        <button type="button" class="btn btn-danger"
+                            onclick="window.location='{{ route('socios.destroy', $socio->SocioID) }}'">
+                            Eliminar
+                        </button>
+                        </div>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
