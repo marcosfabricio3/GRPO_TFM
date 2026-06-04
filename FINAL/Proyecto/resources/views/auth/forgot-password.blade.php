@@ -1,25 +1,17 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
-
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
+@extends('layouts.auth-container')
+@section('auth_subtitle','Recuperar contraseña')
+@section('auth_content')
+    <p class="text-center fw-bold">Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</p>
     <form method="POST" action="{{ route('password.email') }}">
         @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" name="email" placeholder="Correo Electrónico" required autofocus>
+            <label for="floatingInput">Correo Electrónico</label>
         </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
+        @if ($errors->any())
+            <div class="alert alert-danger">{{ $errors->first() }}</div>
+        @endif
+        <button type="button" class="btn btn-success w-100 mt-2">Recuperar contraseña</button>
+        <a class="btn btn-link w-100 mt-2" href="{{ route('login') }}">Volver al inicio</a>
     </form>
-</x-guest-layout>
+@endsection

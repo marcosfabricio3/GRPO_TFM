@@ -35,12 +35,13 @@
 			@endguest
 
 			@auth
-			<span class="text-white me-3">Binvenido, {{ Auth::user()->name }}!</span>
-
-			<form method="POST" action="{{ route('logout') }}" class="d-inline">
-				@csrf
-				<button class="btn btn-outline-light">Cerrar sesión</button>
-			</form>
+			<div class="d-flex align-items-center me-2 ">
+				<h5 class="me-3">Binvenido, {{ Auth::user()->name }}!</h5>
+				<form method="POST" action="{{ route('logout') }}" >
+					@csrf
+					<button class="btn btn-secondary">Cerrar sesión</button>
+				</form>
+			</div>
 			@endauth
         </div>
 		<div class="col-md-3 d-flex justify-content-end">
