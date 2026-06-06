@@ -93,26 +93,6 @@ Route::get('/instructores/{instructor}/edit', [InstructorController::class, 'edi
 Route::put('/instructores/{instructor}', [InstructorController::class, 'update'])->name('instructores.update');
 Route::delete('/instructores/{instructor}', [InstructorController::class, 'destroy'])->name('instructores.destroy');
 
-
-
-
-
-
-//Mostrar Todos los dueños
-Route::get("/duenio", [ControllerDuenio::class, "index"]);
-
-//Mostrar Formulario
-Route::get("/duenio/crear", [ControllerDuenio::class, "crear"]);
-//Guardar el nuevo dueño
-Route::post("/duenio", [ControllerDuenio::class, "guardar"]);
-//Editr un dueño
-Route::get("/duenio/{id}/editar", [ControllerDuenio::class, "editar"]);
-//Actualizar un dueño
-Route::put("/duenio/{id}", [ControllerDuenio::class, "actualizar"]);
-//Eliminar un dueño
-Route::delete("/duenio/{id}", [ControllerDuenio::class, "eliminar"]);
-
-Route::get("/duenio/resumen", [ControllerDuenio::class, "resumen"]);
 });
 
 require __DIR__.'/auth.php';
