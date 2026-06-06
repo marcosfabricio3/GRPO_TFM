@@ -1,0 +1,21 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+#loadingOverlay{
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--bs-body-bg);
+
+    z-index: 99999;
+
+    transition: opacity .4s ease;
+}
+
+#loadingOverlay.ocultar{
+    opacity: 0;
+    pointer-events: none;
+}
