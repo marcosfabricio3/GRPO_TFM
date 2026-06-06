@@ -1,19 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
-
-    @vite([
-        'resources/css/login.css',
-        'resources/js/login.js'
-    ])
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Gym Login</title>
-    <link rel="stylesheet" href="../css/login.css">
-</head>
+@vite(['resources/js/login.js','resources/css/login.css'])
 <body class="min-vh-100 d-flex justify-content-center align-items-center">
     <canvas id="background"></canvas>
     <main class="container position-relative">
@@ -25,19 +10,11 @@
                         <h3 class="text-center mb-4">@yield('auth_subtitle')</h3>
                        @yield('auth_content')
                         <div class="text-center mt-4">
-                            <small class="text-muted">
-                                &copy; Gym 2026
-                            </small>
+                            <small class="text-muted">&copy; Gym 2026</small>
                         </div>
-
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </main>
-
 </body>
-</html>
