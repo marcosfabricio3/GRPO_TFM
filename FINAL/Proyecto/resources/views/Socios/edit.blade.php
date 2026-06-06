@@ -1,80 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Socio</title>
-</head>
-<body>
-
-    <h1>Editar Socio</h1>
-
-    <form action="{{ route('socios.update', $socio->SocioID) }}" method="POST">
-
-        @csrf
-        @method('PUT')
-
-        <label>Nombre:</label>
-        <input type="text"
-               name="Nombre"
-               value="{{ $socio->Nombre }}"
-               required>
-        <br><br>
-
-        <label>Documento:</label>
-        <input type="text"
-               name="DocumentoIdentidad"
-               value="{{ $socio->DocumentoIdentidad }}"
-               required>
-        <br><br>
-
-        <label>Email:</label>
-        <input type="email"
-               name="Email"
-               value="{{ $socio->Email }}"
-               required>
-        <br><br>
-
-        <label>Teléfono:</label>
-        <input type="text"
-               name="Telefono"
-               value="{{ $socio->Telefono }}"
-               required>
-        <br><br>
-
-        <label>Fecha de Nacimiento:</label>
-        <input type="date"
-               name="FechaNacimiento"
-               value="{{ $socio->FechaNacimiento }}"
-               required>
-        <br><br>
-
-        <label>Activo:</label>
-
-        <select name="Activo">
-
-            <option value="1"
-                {{ $socio->Activo ? 'selected' : '' }}>
-                Sí
-            </option>
-
-            <option value="0"
-                {{ !$socio->Activo ? 'selected' : '' }}>
-                No
-            </option>
-
-        </select>
-
-        <br><br>
-
-        <button type="submit">
-            Actualizar Socio
-        </button>
-    </form>
-    <br>
-    <a href="{{ route('socios.index') }}">
-        Volver a la lista
-    </a>
-
-</body>
-</html>
+<form id="formEditarSocio" class="form-control" method="PUT">
+<div class="container mt-3">
+    <div class="mb-3">
+        <label for="Nombre">Nombre:</label>
+        <input type="text" class="form-control" id="Nombre" name="Nombre" value="{{ $socio->Nombre }}" required placeholder="Ingrese el nombre del socio">     
+    </div>
+    <div class="mb-3">
+        <label for="DocumentoIdentidad">Documento de Identidad:</label>
+        <input type="text" class="form-control" id="DocumentoIdentidad" name="DocumentoIdentidad" value="{{ $socio->DocumentoIdentidad }}" placeholder="Ingrese el documento de identidad del socio">
+    </div>
+    <div class="mb-3" mt-3>
+        <label for="Email">Email:</label>
+        <input type="email" class="form-control"  id="Email" name="Email" value="{{ $socio->Email }}" placeholder="Ingrese el email del socio">
+    </div>
+    <div class="mb-3">
+        <label for="Telefono">Telefono:</label>
+        <input type="text" class="form-control" id="Telefono" name="Telefono" value="{{ $socio->Telefono }}" placeholder="Ingrese el telefono del socio">
+    </div>
+    <div class="mb-3">
+        <label for="FechaNacimiento">Fecha de Nacimiento:</label>
+        <input type="date" class="form-control" id="FechaNacimiento" name="FechaNacimiento" value="{{ $socio->FechaNacimiento }}">        
+    </div>
+    <div class="mb-3">
+        <label for="activo">Activo:</label>
+        <input type="checkbox" id="activo" name="activo" {{ $socio->Activo ? 'checked' : '' }}>
+    </div>
+</div>
+</form>

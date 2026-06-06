@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 use App\Models\Socio;
 
 class SocioController extends Controller
@@ -24,7 +24,7 @@ class SocioController extends Controller
     // Guarda un socio nuevo
     public function store(Request $request)
     {
-        Socios::create([
+        Socio::create([
         'Nombre' => $request->Nombre,
         'DocumentoIdentidad' => $request->DocumentoIdentidad,
         'Email' => $request->Email,
@@ -58,18 +58,32 @@ class SocioController extends Controller
     {
         $socio = Socio::findOrFail($id);
 
-        $socio->update($request->all());
+        $socio->Nombre = $request->Nombre;
+        $socio->DocumentoIdentidad = $request->DocumentoIdentidad;
+        $socio->Email = $request->Email;
+        $socio->Telefono = $request->Telefono;
+        $socio->FechaNacimiento = $request->FechaNacimiento;
+        $socio->Activo = $request->has('activo');
 
-        return redirect()->route('socios.index');
+        $socio->save();
+
+        return response()->json(['success' => true]);    
     }
 
     // Elimina un socio
-    public function destroy(string $id)
-    {
+    public function destroy(string $id) {
         $socio = Socio::findOrFail($id);
+        
+        if(
+            $socio->inscripciones()->exists() ||
+            $socio->asistencias()->exists()
+        ) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No se puede eliminar el socio porque tiene inscripciones o asistencias.'], 409);
+        }
 
         $socio->delete();
-
-        return redirect()->route('socios.index');
+        return response()->json(['success' => true]);
     }
 }

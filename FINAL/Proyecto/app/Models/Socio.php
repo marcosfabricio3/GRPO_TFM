@@ -24,4 +24,12 @@ class Socio extends Model
         'FechaAlta',
         'Activo'
     ];
+
+    public function inscripciones(){
+        return $this->hasMany(Inscripcion::class, 'SocioID');
+    }
+
+    public function asistencias(){
+        return $this->hasMany(Asistencia::class, 'SocioID');
+    }
 }
