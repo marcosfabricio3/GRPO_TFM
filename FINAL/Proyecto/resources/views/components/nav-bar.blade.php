@@ -11,7 +11,7 @@
 					<a href="{{ route('socios.index') }}" class="nav-link px-2 @yield('socio_active')">Socios</a>
 				</li>
 				<li>
-					<a href="#" class="nav-link px-2">Membresias</a>
+					<a href="{{ route('membresias.index') }}" class="nav-link px-2 @yield('membresia_active')">Membresias</a>
 				</li>
 				<li>
 					<a href="#" class="nav-link px-2">Clases</a>

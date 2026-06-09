@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 @vite(['resources/js/login.js','resources/css/login.css'])
 <body class="min-vh-100 d-flex justify-content-center align-items-center">
     <canvas id="background"></canvas>
@@ -8,7 +10,7 @@
                     <div class="card-body p-4">
                         <h2 class="text-center mb-4">Gym Manager</h2>
                         <h3 class="text-center mb-4">@yield('auth_subtitle')</h3>
-                       @yield('auth_content')
+                        @yield('auth_content')
                         <div class="text-center mt-4">
                             <small class="text-muted">&copy; Gym 2026</small>
                         </div>
