@@ -30,6 +30,5 @@
         <button type="submit" class="btn btn-primary">Crear Socio</button>
     </form>
 </div>
-<a href="{{ route('socios.index') }}">Volver a la lista de socios</a>
-
+<button type="button" class="btn btn-secondary" onclick="window.location='{{route('socios.index')}}'">Volver a la lista de socios</button>
 @endsection

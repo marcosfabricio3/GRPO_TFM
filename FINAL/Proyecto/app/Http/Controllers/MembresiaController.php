@@ -52,7 +52,7 @@ class MembresiaController extends Controller
 
         $membresia->update($request->all());
 
-        return redirect()->route('membresias.index');
+        return response()->json(['success' => true]);
     }
 
     // Elimina una membresía
@@ -62,6 +62,6 @@ class MembresiaController extends Controller
 
         $membresia->delete();
 
-        return redirect()->route('membresias.index');
+        return response()->json(['success' => true]);
     }
 }

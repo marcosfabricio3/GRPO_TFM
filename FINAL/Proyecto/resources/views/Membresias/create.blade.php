@@ -1,51 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Crear Nueva Membresía</h1>
-
-    <form action="{{ route('membresias.store') }}" method="POST">
-
-    @csrf
-
-    <label>Tipo:</label>
-
-    <select name="Tipo" required>
-        <option value="Mensual">Mensual</option>
-        <option value="Trimestral">Trimestral</option>
-        <option value="Anual">Anual</option>
-        <option value="Clase Suelta">Clase Suelta</option>
-    </select>
-
-    <br><br>
-
-    <label>Precio:</label>
-    <input type="number" name="Precio" step="0.01" required>
-
-    <br><br>
-
-    <label>Cantidad de Clases Incluidas:</label>
-    <input type="number" name="CantidadClasesIncluidas" required>
-
-    <br><br>
-
-    <label>Descripción:</label>
-    <textarea name="Descripcion"></textarea>
-
-    <br><br>
-
-    <button type="submit">
-        Crear Membresía
-    </button>
+@extends('layouts.app')
+@section('title', 'Listado de membresias')
+@section('content')
+@section('membresia_active', 'link-secondary')
+<x-nav-bar />
+<div class="container mt-3">
+    <form class="form-control" action="{{ route('membresias.store') }}" method="POST">
+        @csrf
+        <h2>Crear Nueva Membresía</h2>
+        <div class="mb-3">
+            <label for="Tipo">Tipo de Membresia:</label>
+            <select class="form-select" id="Tipo" name="Tipo" required>
+                <option value="Mensual">Mensual</option>
+                <option value="Trimestral">Trimestral</option>
+                <option value="Anual">Anual</option>
+                <option value="Clase Suelta">Clase Suelta</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="Descripcion">Descripción:</label>
+            <input type="text" class="form-control" id="Descripcion" name="Descripcion" placeholder="Ingrese la descripción de la membresia" required>
+        </div>
+        <div class="mb-3">
+            <label for="Precio">Precio:</label>
+            <input type="number" class="form-control" id="Precio" name="Precio" placeholder="Ingrese el precio de la membresia" step="0.01" required>
+        </div>
+        <div class="mb-3">
+            <label for="CantidadClasesIncluidas">Cantidad de Clases Incluidas:</label>
+            <input type="number" class="form-control" id="CantidadClasesIncluidas" name="CantidadClasesIncluidas" placeholder="Ingrese la cantidad de clases incluidas en la membresia" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Crear Membresia</button>
 
     </form>
-
-    <a href="{{ route('membresias.index') }}">Volver a la lista de membresías</a>
-
-</body>
-</html>
+</div>
+<button type="button" class="btn btn-secondary" onclick="window.location='{{route('membresias.index')}}'">Volver a la lista de membresias</button>
+@endsection
