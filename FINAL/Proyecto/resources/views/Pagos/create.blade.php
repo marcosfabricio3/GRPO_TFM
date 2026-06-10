@@ -1,88 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Nuevo Pago</title>
-</head>
-<body>
-
-    <h1>Crear Nuevo Pago</h1>
-
-    <form action="{{ route('pagos.store') }}" method="POST">
-
+@extends('layouts.app')
+@section('title', 'Crear Nuevo Pago')
+@section('content')
+@section('pago_active', 'link-secondary')
+@vite(['resources/js/pagos/create.js'])
+<x-nav-bar />
+<div class="container mt-3">
+    <form id="formCrearPago" class="form-control" action="{{ route('pagos.store') }}" method="POST">
         @csrf
-
-        <label>Inscripción:</label>
-
-        <select name="InscripcionID" required>
-
-            @foreach($inscripciones as $inscripcion)
-
-                <option value="{{ $inscripcion->InscripcionID }}">
-
-                    {{ $inscripcion->socio?->Nombre }}
-
-                    -
-
-                    {{ $inscripcion->membresia?->Tipo }}
-
-                </option>
-
-            @endforeach
-
-        </select>
-
-        <br><br>
-
-        <label>Monto:</label>
-
-        <input type="number"
-               name="Monto"
-               step="0.01"
-               required>
-
-        <br><br>
-
-        <label>Fecha Pago:</label>
-
-        <input type="datetime-local"
-               name="FechaPago"
-               required>
-
-        <br><br>
-
-        <label>Medio Pago:</label>
-
-        <select name="MedioPago">
-
-            <option value="Efectivo">
-                Efectivo
-            </option>
-
-            <option value="Tarjeta">
-                Tarjeta
-            </option>
-
-            <option value="Transferencia">
-                Transferencia
-            </option>
-
-        </select>
-
-        <br><br>
-
-        <button type="submit">
-            Crear Pago
-        </button>
-
+        <h2>Crear Nuevo Pago</h2>
+        <div class="mb-3">
+            <label class='form-label' for="InscripcionID">Inscripción:</label>
+            <select class="form-select" id="InscripcionID" name="InscripcionID" required>
+                <option value="">--Seleccione una inscripción--</option>
+                @foreach($inscripciones as $inscripcion)
+                    <option value="{{ $inscripcion->InscripcionID }}">{{ $inscripcion->socio?->DocumentoIdentidad }} - {{ $inscripcion->membresia?->Descripcion }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class='form-label' for="Monto">Monto:</label>
+            <input type="number" class="form-control" id="Monto" name="Monto" step="0.01" required>
+        </div>
+        <div class="mb-3">
+            <label class='form-label' for="FechaPago">Fecha Pago:</label>
+            <input type="datetime-local" class="form-control" id="FechaPago" name="FechaPago" required>
+        </div>
+        <div class="mb-3">
+            <label class='form-label' for="MedioPago">Medio Pago:</label>
+            <select class="form-select" id="MedioPago" name="MedioPago" required>
+                <option value="">--Seleccione un medio de pago--</option>
+                <option value="Efectivo">Efectivo</option>
+                <option value="Tarjeta">Tarjeta</option>
+                <option value="Transferencia">Transferencia</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" >Crear Pago</button>
     </form>
-
     <br>
-
-    <a href="{{ route('pagos.index') }}">
-        Volver a la lista de pagos
-    </a>
-
-</body>
-</html>
+    <button type="button" class="btn btn-secondary" onclick="window.location='{{route('pagos.index')}}'">Volver a la lista de pagos</button>
+</div>
+@endsection

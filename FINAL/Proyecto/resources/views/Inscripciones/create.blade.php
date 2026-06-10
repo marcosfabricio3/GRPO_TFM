@@ -68,5 +68,6 @@
         </div>
         <button type="submit" class="btn btn-primary" >Crear Inscripción</button>
     </form>
+    <br>
     <button type="button" class="btn btn-secondary" onclick="window.location='{{route('inscripciones.index')}}'">Volver a la lista de inscripciones</button>
 </div>

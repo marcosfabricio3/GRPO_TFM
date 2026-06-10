@@ -28,23 +28,17 @@ class PagoController extends Controller
     // Guarda un pago nuevo
     public function store(Request $request)
     {
-        Pago::create([
-
-        'InscripcionID' => $request->InscripcionID,
-
-        'Monto' => $request->Monto,
-
-        'FechaPago' => str_replace(
-            'T',
-            ' ',
-            $request->FechaPago
-        ),
-
-        'MedioPago' => $request->MedioPago
-
-    ]);
-
-        return redirect()->route('pagos.index');
+        try {
+            Pago::create([
+                'InscripcionID' => $request->InscripcionID,
+                'Monto' => $request->Monto,
+                'FechaPago' => str_replace('T',' ',$request->FechaPago),
+                'MedioPago' => $request->MedioPago
+            ]);    
+        }catch (\Throwable $th) {
+            return response()->json(['success' => false, 'message' => 'Error al crear el pago.'], 409);
+        }
+        return response()->json(['success' => true, 'message' => 'Pago creado correctamente.']);
     }
 
     // Muestra un pago específico
@@ -68,34 +62,29 @@ class PagoController extends Controller
     // Actualiza un pago existente
     public function update(Request $request, string $id)
     {
-        $pago = Pago::findOrFail($id);
-
-        $pago->update([
-
-        'InscripcionID' => $request->InscripcionID,
-
-        'Monto' => $request->Monto,
-
-        'FechaPago' => str_replace(
-            'T',
-            ' ',
-            $request->FechaPago
-        ),
-
-        'MedioPago' => $request->MedioPago
-
-        ]);
-
-        return redirect()->route('pagos.index');
+        try {
+            $pago = Pago::findOrFail($id);
+            $pago->update([
+                'InscripcionID' => $request->InscripcionID,
+                'Monto' => $request->Monto,
+                'FechaPago' => str_replace('T',' ',$request->FechaPago),
+                'MedioPago' => $request->MedioPago
+            ]);    
+        } catch (\Throwable $th) {
+            return response()->json(['success' => false, 'message' => 'Error al actualizar el pago.'], 409);
+        }
+        return response()->json(['success' => true, 'message' => 'Pago actualizado correctamente.']);
     }
 
     // Elimina un pago
     public function destroy(string $id)
     {
-        $pago = Pago::findOrFail($id);
-
-        $pago->delete();
-
-        return redirect()->route('pagos.index');
+        try{
+            $pago = Pago::findOrFail($id);
+            $pago->delete();
+        }catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error al eliminar el pago. Contacte al administrador.'], 409);
+        }
+        return response()->json(['success' => true, 'message' => 'Pago eliminado correctamente.']);
     }
 }

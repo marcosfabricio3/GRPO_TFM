@@ -22,6 +22,9 @@
 				<li>
 					<a href="{{ route('instructores.index') }}" class="nav-link px-2 @yield('instructor_active')">Instructores</a>
 				</li>
+				<li>
+					<a href="{{ route('pagos.index') }}" class="nav-link px-2 @yield('pago_active')">Pagos</a>
+				</li>
 			</ul>
 			<div class="ms-auto">
 				@guest
