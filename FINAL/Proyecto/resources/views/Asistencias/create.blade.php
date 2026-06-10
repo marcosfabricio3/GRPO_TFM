@@ -1,80 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Nueva Asistencia</title>
-</head>
-<body>
-
-    <h1>Crear Nueva Asistencia</h1>
-
-    <form action="{{ route('asistencias.store') }}" method="POST">
-
+@extends('layouts.app')
+@section('title', 'Crear Nueva Asistencia')
+@section('content')
+@section('asistencia_active', 'link-secondary')
+@vite(['resources/js/asistencias/create.js'])
+<x-nav-bar />
+<div class="container mt-3">
+    <form id="formCrearAsistencia" class="form-control" action="{{ route('asistencias.store') }}" method="POST">
         @csrf
-
-        <label>Socio:</label>
-
-        <select name="SocioID" required>
-
-            @foreach ($socios as $socio)
-
-                <option value="{{ $socio->SocioID }}">
-
-                    {{ $socio->Nombre }}
-
-                </option>
-
-            @endforeach
-
-        </select>
-
-        <br><br>
-
-        <label>Clase:</label>
-
-        <select name="ClaseID" required>
-
-            @foreach ($clases as $clase)
-
-                <option value="{{ $clase->ClaseID }}">
-
-                    {{ $clase->Nombre }}
-
-                </option>
-
-            @endforeach
-
-        </select>
-
-        <br><br>
-
-        <label>Fecha Entrada:</label>
-
-        <input type="datetime-local"
-               name="FechaEntrada"
-               required>
-
-        <br><br>
-
-        <label>Fecha Salida:</label>
-
-        <input type="datetime-local"
-               name="FechaSalida">
-
-        <br><br>
-
-        <button type="submit">
-            Guardar
-        </button>
-
+        <h2>Crear Nueva Asistencia</h2>
+        <div class="mb-3">
+            <label class='form-label' for="SocioID">Socio:</label>
+            <select class="form-select" id="SocioID" name="SocioID" required>
+                <option value="">--Seleccione un socio--</option>
+                @foreach($socios as $socio)
+                    <option value="{{ $socio->SocioID }}">{{ $socio->DocumentoIdentidad}} - {{ $socio->Nombre }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class='form-label' for="ClaseID">Clase:</label>
+            <select class="form-select" id="ClaseID" name="ClaseID" required>
+                <option value="">--Seleccione una clase--</option>
+                @foreach($clases as $clase)
+                    <option value="{{ $clase->ClaseID }}">{{ $clase->Nombre }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class='form-label' for="FechaEntrada">Fecha Entrada:</label>
+            <input type="datetime-local" class="form-control" id="FechaEntrada" name="FechaEntrada" required>
+        </div>
+        <div class="mb-3">
+            <label class='form-label' for="FechaSalida">Fecha Salida:</label>
+            <input type="datetime-local" class="form-control" id="FechaSalida" name="FechaSalida" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Crear Asistencia</button>
     </form>
-
     <br>
-
-    <a href="{{ route('asistencias.index') }}">
-        Volver a la lista de asistencias
-    </a>
-
-</body>
-</html>
+    <button type="button" class="btn btn-secondary" onclick="window.location='{{route('asistencias.index')}}'">Volver a la lista de asistencias</button>
+</div>
+@endsection

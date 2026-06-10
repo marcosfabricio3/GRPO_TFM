@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Asistencia;
 use App\Models\Socio;
 use App\Models\Clase;
-
+use App\Models\Inscripcion;
 
 class AsistenciaController extends Controller
 {
@@ -36,31 +36,23 @@ class AsistenciaController extends Controller
     // STORE - Guarda una nueva asistencia en la base de datos.
     public function store(Request $request)
     {
-        // Crea un nuevo registro usando los datos del formulario $request->all() trae todos los campos enviados.
-        Asistencia::create([
+        try{
+            //Verificar todas las membresías del socio y verificar que al menos una tenga una inscripción activa
+            $Inscripcion = Inscripcion::where('SocioID', $request->SocioID)->where('Estado', 'Activa')->first();
+            if (!$Inscripcion) {
+                return response()->json(['success' => false, 'message' => 'El socio no cuenta con una inscripción activa.'], 409);
+            }
+            Asistencia::create([
+                'SocioID' => $request->SocioID,
+                'ClaseID' => $request->ClaseID,
+                'FechaEntrada' => str_replace('T',' ',$request->FechaEntrada),
+                'FechaSalida' => str_replace('T',' ',$request->FechaSalida)
+            ]);
 
-            'SocioID' => $request->SocioID,
-
-            'ClaseID' => $request->ClaseID,
-
-            'FechaEntrada' => str_replace
-            (
-                'T',
-                ' ',
-                $request->FechaEntrada
-            ),
-
-            'FechaSalida' => str_replace
-            (
-                'T',
-                ' ',
-                $request->FechaSalida
-            )
-
-        ]);
-
-        // Redirecciona al listado de asistencias.
-        return redirect()->route('asistencias.index');
+        } catch(Exception $e){
+            return response()->json(['success' => false, 'message' => 'Error al crear la asistencia. Contacte al administrador.'], 409);
+        }
+            return response()->json(['success' => true, 'message' => 'Asistencia ingresada correctamente.']);
     }
 
 
@@ -92,45 +84,30 @@ class AsistenciaController extends Controller
     // UPDATE - Actualiza una asistencia existente.
     public function update(Request $request, string $id)
     {
-    // Busca la asistencia por ID
-    $asistencia = Asistencia::findOrFail($id);
-
-    // Actualiza los datos
-    $asistencia->update([
-
-        'SocioID' => $request->SocioID,
-
-        'ClaseID' => $request->ClaseID,
-
-        'FechaEntrada' => str_replace(
-            'T',
-            ' ',
-            $request->FechaEntrada
-        ),
-
-        'FechaSalida' => str_replace(
-            'T',
-            ' ',
-            $request->FechaSalida
-        )
-
-    ]);
-
-    // Redirecciona al listado
-    return redirect()->route('asistencias.index');
+        try{
+            $asistencia = Asistencia::findOrFail($id);
+        
+            $asistencia->update([
+                'SocioID' => $request->SocioID,
+                'ClaseID' => $request->ClaseID,
+                'FechaEntrada' => str_replace('T',' ',$request->FechaEntrada),
+                'FechaSalida' => str_replace('T',' ',$request->FechaSalida)
+            ]);
+        } catch(\Exception $e){
+            return response()->json(['success' => false, 'message' => 'Error al actualizar la asistencia. Contacte al administrador.'], 409);
+        }
+        return response()->json(['success' => true, 'message' => 'Asistencia actualizada correctamente.']);
     }
-
-
     // DESTROY - Elimina una asistencia de la base de datos.
     public function destroy(string $id)
     {
-        // Busca la asistencia por ID, si no existe, Laravel muestra error 404 automáticamente.
-        $asistencia = Asistencia::findOrFail($id);
+        try{
+            $asistencia = Asistencia::findOrFail($id);
+            $asistencia->delete();
 
-        // Elimina el registro de la base de datos.
-        $asistencia->delete();
-
-        // Redirecciona al listado actualizado.
-        return redirect()->route('asistencias.index');
+        } catch(\Exception $e){
+            return response()->json(['success' => false, 'message' => 'Error al eliminar la asistencia. Contacte al administrador.'], 409);
+        }
+        return response()->json(['success' => true, 'message' => 'Asistencia eliminada correctamente.']);
     }
 }

@@ -54,3 +54,4 @@
     </form>
     <button type="button" class="btn btn-secondary" onclick="window.location='{{route('clases.index')}}'">Volver a la lista de clases</button>
 </div>
+@endsection

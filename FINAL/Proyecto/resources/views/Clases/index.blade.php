@@ -33,8 +33,8 @@
                     <button type="button" class="btn btn-danger  abrir-modal" data-id="{{ $clase->ClaseID }}" data-url="{{ route('clases.show', $clase->ClaseID) }}" data-action="eliminarClase" data-title="Eliminar clase" data-confirm-text="Eliminar clase" data-cancel-text="Cancelar" data-actionForDelete="true">Eliminar</button>
                 </div>
             </td>
-        @endforeach
         </tr>
+        @endforeach
     </tbody>
 </table>
 @endsection

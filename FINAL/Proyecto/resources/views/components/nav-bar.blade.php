@@ -25,6 +25,9 @@
 				<li>
 					<a href="{{ route('pagos.index') }}" class="nav-link px-2 @yield('pago_active')">Pagos</a>
 				</li>
+				<li>
+					<a href="{{ route('asistencias.index') }}" class="nav-link px-2 @yield('asistencia_active')">Asistencias</a>
+				</li>
 			</ul>
 			<div class="ms-auto">
 				@guest

@@ -1,86 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Asistencia</title>
-</head>
-<body>
-
-    <h1>Editar Asistencia</h1>
-
-    <form action="{{ route('asistencias.update', $asistencia->AsistenciaID) }}"
-          method="POST">
-
-        @csrf
-        @method('PUT')
-
-        <label>Socio:</label>
-
-        <select name="SocioID" required>
-
-            @foreach ($socios as $socio)
-
-                <option value="{{ $socio->SocioID }}"
-                    {{ $asistencia->SocioID == $socio->SocioID ? 'selected' : '' }}>
-
-                    {{ $socio->Nombre }}
-
-                </option>
-
-            @endforeach
-
-        </select>
-
-        <br><br>
-
-        <label>Clase:</label>
-
-        <select name="ClaseID" required>
-
-            @foreach ($clases as $clase)
-
-                <option value="{{ $clase->ClaseID }}"
-                    {{ $asistencia->ClaseID == $clase->ClaseID ? 'selected' : '' }}>
-
-                    {{ $clase->Nombre }}
-
-                </option>
-
-            @endforeach
-
-        </select>
-
-        <br><br>
-
-        <label>Fecha Entrada:</label>
-
-        <input type="datetime-local"
-               name="FechaEntrada"
-               value="{{ str_replace(' ', 'T', substr($asistencia->FechaEntrada, 0, 16)) }}"
-               required>
-
-        <br><br>
-
-        <label>Fecha Salida:</label>
-
-        <input type="datetime-local"
-               name="FechaSalida"
-               value="{{ $asistencia->FechaSalida ? str_replace(' ', 'T', substr($asistencia->FechaSalida, 0, 16)) : '' }}">
-
-        <br><br>
-
-        <button type="submit">
-            Actualizar Asistencia
-        </button>
-
-    </form>
-
-    <br>
-
-    <a href="{{ route('asistencias.index') }}">
-        Volver a la lista de asistencias
-    </a>
-
-</body>
-</html>
+<form id="formEditarAsistencia" method="PUT">
+    <div class="container mb-3">
+        <div class="mb-3">
+            <label for="SocioID" class="form-label">Socio:</label>
+            <select class="form-select" id="SocioID" name="SocioID" required>
+                <option value="">--Seleccione un socio--</option>
+                @foreach($socios as $socio)
+                    <option value="{{ $socio->SocioID }}" @if ($asistencia->SocioID == $socio->SocioID) selected @endif>{{ $socio->DocumentoIdentidad }} - {{ $socio->Nombre }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="ClaseID" class="form-label">Clase:</label>
+            <select class="form-select" id="ClaseID" name="ClaseID" required>
+                <option value="">--Seleccione una clase--</option>
+                @foreach($clases as $clase)
+                    <option value="{{ $clase->ClaseID }}" @if ($asistencia->ClaseID == $clase->ClaseID) selected @endif>{{ $clase->Nombre }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="FechaEntrada" class="form-label">Fecha Entrada:</label>
+            <input type="datetime-local" class="form-control" id="FechaEntrada" name="FechaEntrada" value="{{ str_replace(' ', 'T', substr($asistencia->FechaEntrada, 0, 16)) }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="FechaSalida" class="form-label">Fecha Salida:</label>
+            <input type="datetime-local" class="form-control" id="FechaSalida" name="FechaSalida" value="{{ $asistencia->FechaSalida ? str_replace(' ', 'T', substr($asistencia->FechaSalida, 0, 16)) : '' }}">
+        </div>
+    </div>
+</form>
