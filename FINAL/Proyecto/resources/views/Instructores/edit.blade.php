@@ -1,36 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Editar Instructor</h1>
-
-    <form action="{{ route('instructores.update', $instructor->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="{{ $instructor->nombre }}" required>
-
-        <label for="especialidad">Especialidad:</label>
-        <input type="text" id="especialidad" name="especialidad" value="{{ $instructor->especialidad }}" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="{{ $instructor->email }}" required>
-
-        <label for="telefono">Telefono:</label>
-        <input type="tel" id="telefono" name="telefono" value="{{ $instructor->telefono }}" required>
-
-        <label for="activo">Activo:</label>
-        <input type="checkbox" id="activo" name="activo" {{ $instructor->activo ? 'checked' : '' }}>
-
-        <button type="submit">Actualizar Instructor</button>
-    </form>
-    <a href="{{ route('instructores.index') }}">Volver a la lista de instructores</a> 
-    
-</body>
-</html>
+<form id="formEditarInstructor" method="PUT">
+    <div class="mb-3">
+        <label class='form-label' for="Nombre">Nombre</label>
+        <input type="text" class="form-control" id="Nombre" name="Nombre"  value="{{ $instructor->Nombre }}" placeholder="Ingrese el nombre del instructor" required>
+    </div>
+    <div class="mb-3">
+        <label class='form-label' for="Especialidad">Especialidad:</label>
+        <input type="text" class="form-control" id="Especialidad" name="Especialidad" value="{{ $instructor->Especialidad }}" placeholder="Ingrese la especialidad del instructor" required>
+    </div>
+    <div class="mb-3">        
+        <label class='form-label' for="Email">Email:</label>
+        <input type="email" class="form-control" id="Email" name="Email" value="{{ $instructor->Email }}" placeholder="Ingrese el email del instructor" required>
+    </div>
+    <div class="mb-3">
+        <label class='form-label' for="Telefono">Telefono:</label>
+        <input type="tel" class="form-control" id="Telefono" name="Telefono" value="{{ $instructor->Telefono }}" placeholder="Ingrese el telefono del instructor" required>
+    </div>
+    <div class="mb-3 form-check form-switch">
+        <input type="checkbox" class="form-check-input" id="Activo" name="Activo" {{ $instructor->Activo ? 'checked' : '' }}>
+        <label class='form-check-label' for="Activo">Activo:</label>
+    </div>
+</form>   

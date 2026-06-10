@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Lista de socios')
-@vite(['resources/js/socios/main-actions.js', 'resources/css/socio_status.css'])
+@vite(['resources/js/socios/main-actions.js', 'resources/css/person_status.css'])
 @section('content')
 @section('socio_active', 'link-secondary')
 <x-nav-bar />
@@ -13,8 +13,8 @@
             <th>Documento</th>
             <th>Nombre</th>
             <th>Email</th>
-            <th>Acciones</th>
             <th>Estado</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -23,13 +23,6 @@
                 <td>{{ $socio->DocumentoIdentidad }}</td>
                 <td>{{ $socio->Nombre }}</td>
                 <td>{{ $socio->Email }}</td>
-                <td>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-success abrir-modal" data-id="{{ $socio->SocioID }}" data-url="{{ route('socios.show', $socio->SocioID) }}" data-action="" data-title="Detalle del Socio" data-confirm-text="Cerrar">Ver</button>
-                        <button type="button" class="btn btn-warning abrir-modal" data-id="{{ $socio->SocioID }}" data-url="{{ route('socios.edit', $socio->SocioID) }}" data-action="editarSocio" data-title="Editar socio" data-confirm-text="Editar socio" data-cancel-text="Cancelar">Editar</button>
-                        <button type="button" class="btn btn-danger  abrir-modal" data-id="{{ $socio->SocioID }}" data-url="{{ route('socios.show', $socio->SocioID) }}" data-action="eliminarSocio" data-title="Eliminar socio" data-confirm-text="Eliminar datos de socio" data-cancel-text="Cancelar" data-actionForDelete="true">Eliminar</button>
-                    </div>
-                </td>
                 <td>
                     @if($socio->Activo)
                     <svg class="animated-tick d-inline-block me-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
@@ -46,7 +39,15 @@
                     <span class="badge bg-danger">Inactivo</span>
                     @endif
                 </td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success abrir-modal" data-id="{{ $socio->SocioID }}" data-url="{{ route('socios.show', $socio->SocioID) }}" data-action="" data-title="Detalle del Socio" data-confirm-text="Cerrar">Ver</button>
+                        <button type="button" class="btn btn-warning abrir-modal" data-id="{{ $socio->SocioID }}" data-url="{{ route('socios.edit', $socio->SocioID) }}" data-action="editarSocio" data-title="Editar socio" data-confirm-text="Editar socio" data-cancel-text="Cancelar">Editar</button>
+                        <button type="button" class="btn btn-danger  abrir-modal" data-id="{{ $socio->SocioID }}" data-url="{{ route('socios.show', $socio->SocioID) }}" data-action="eliminarSocio" data-title="Eliminar socio" data-confirm-text="Eliminar datos de socio" data-cancel-text="Cancelar" data-actionForDelete="true">Eliminar</button>
+                    </div>
+                </td>
             </tr>
         @endforeach
     </tbody>
 </table>
+@endsection

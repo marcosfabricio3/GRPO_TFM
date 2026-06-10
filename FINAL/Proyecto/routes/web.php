@@ -82,14 +82,14 @@ Route::get('/pagos/{pago}/edit', [PagoController::class, 'edit'])->name('pagos.e
 Route::put('/pagos/{pago}', [PagoController::class, 'update'])->name('pagos.update');
 Route::delete('/pagos/{pago}', [PagoController::class, 'destroy'])->name('pagos.destroy');
 
-// Instructores
-Route::get('/instructores', [InstructorController::class, 'index'])->name('instructores.index');
-Route::get('/instructores/create', [InstructorController::class, 'create'])->name('instructores.create');
-Route::post('/instructores', [InstructorController::class, 'store'])->name('instructores.store');
-Route::get('/instructores/{instructor}', [InstructorController::class, 'show'])->name('instructores.show');
-Route::get('/instructores/{instructor}/edit', [InstructorController::class, 'edit'])->name('instructores.edit');
-Route::put('/instructores/{instructor}', [InstructorController::class, 'update'])->name('instructores.update');
-Route::delete('/instructores/{instructor}', [InstructorController::class, 'destroy'])->name('instructores.destroy');
+    // Instructores
+    Route::get('/instructores', [InstructorController::class, 'index'])->name('instructores.index');
+    Route::get('/instructores/create', [InstructorController::class, 'create'])->name('instructores.create');
+    Route::post('/instructores', [InstructorController::class, 'store'])->name('instructores.store');
+    Route::get('/instructores/{instructor}', [InstructorController::class, 'show'])->name('instructores.show');
+    Route::get('/instructores/{instructor}/edit', [InstructorController::class, 'edit'])->name('instructores.edit');
+    Route::put('/instructores/{instructor}', [InstructorController::class, 'update'])->name('instructores.update');
+    Route::delete('/instructores/{instructor}', [InstructorController::class, 'destroy'])->name('instructores.destroy');
 
 });
 
