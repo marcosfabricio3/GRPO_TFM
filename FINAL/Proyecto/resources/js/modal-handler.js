@@ -17,12 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const url = btn.dataset.url;
         const action = btn.dataset.action || "";
         const confirmText = btn.dataset.confirmText || "Confirmar";
+        const cancelText = btn.dataset.cancelText || "";
+        const actionForDelete = btn.dataset.actionfordelete || false;
         
         document.getElementById("modalTitulo").innerText = title;
         document.getElementById("modalConfirmar").innerText = confirmText;
-        document.getElementById("modalCancelarBtn").innerText = "Cancelar";
+        document.getElementById("modalCancelarBtn").innerText = isEmpty(cancelText) ? ""  : cancelText;
         document.getElementById("modalConfirmar").hidden = false;
-        document.getElementById("modalCancelarBtn").hidden = false;
+        document.getElementById("modalCancelarBtn").hidden = isEmpty(cancelText);
         
         window.modalState.action = action;
         window.modalState.data = btn.dataset;
@@ -30,11 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const response = await fetch(url);
             const html = await response.text();
-            if (btn.dataset.action.startsWith("eliminar")) {
-                document.getElementById("modalContenido").innerHTML = confirmMessage + html
-            } else {
-                document.getElementById("modalContenido").innerHTML = html
-            }
+            document.getElementById("modalContenido").innerHTML = actionForDelete ? confirmMessage + html : html;
+            changeConfirmButton(actionForDelete);
         } catch {
             document.getElementById("modalContenido").innerHTML = "Error cargando datos.";
         }
@@ -94,3 +93,23 @@ export function mostrarCarga(){
         `;
     bootstrap.Modal.getOrCreateInstance(document.getElementById("modalGenerico")).show();
 } 
+
+function isEmpty(value){
+    if (value === undefined || value === null) {
+        return true;
+    }
+    if (typeof value === 'string' && value.trim() === '') {
+        return true;
+    }
+    return false;
+}
+
+function changeConfirmButton(boolean){
+    if(boolean === "true"){
+        document.getElementById("modalConfirmar").classList.remove("btn-primary");
+        document.getElementById("modalConfirmar").classList.add("btn-danger");
+    }else{
+        document.getElementById("modalConfirmar").classList.add("btn-primary");
+        document.getElementById("modalConfirmar").classList.remove("btn-danger");
+    }
+}

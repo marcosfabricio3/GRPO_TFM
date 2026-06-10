@@ -24,9 +24,12 @@ class MembresiaController extends Controller
     // Guarda una membresía nueva
     public function store(Request $request)
     {
-        Membresia::create($request->all());
-
-        return redirect()->route('membresias.index');
+        try {
+            Membresia::create($request->all());
+        } catch (\Throwable $th) {
+            return response()->json(['success' => false, 'message' => 'Error al crear la membresia.', 409]);
+        }
+        return response()->json(['success' => true, 'message' => 'Membresía creada correctamente.']);
     }
 
     // Muestra una membresía específica

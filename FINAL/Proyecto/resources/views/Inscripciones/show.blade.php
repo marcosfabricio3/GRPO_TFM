@@ -1,103 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de la Inscripción</title>
-</head>
-<body>
-
-    <h1>Detalle de la Inscripción</h1>
-
-    <p>
-        <strong>ID de la Inscripción:</strong>
-
-        {{ $inscripcion->InscripcionID }}
-    </p>
-
-    <p>
-        <strong>Nombre del Socio:</strong>
-
-        {{ $inscripcion->socio?->Nombre }}
-    </p>
-
-    <p>
-        <strong>Membresía:</strong>
-
-        {{ $inscripcion->membresia?->Tipo }}
-    </p>
-
-    <p>
-        <strong>Fecha de Inicio:</strong>
-
-        {{ $inscripcion->FechaInicio }}
-    </p>
-
-    <p>
-        <strong>Fecha de Vencimiento:</strong>
-
-        {{ $inscripcion->FechaVencimiento }}
-    </p>
-
-    <p>
-        <strong>Estado:</strong>
-
-        {{ $inscripcion->Estado }}
-    </p>
-
-    <p>
-        <strong>Fecha de Creación:</strong>
-
-        {{ $inscripcion->FechaCreacion }}
-    </p>
-
+<div class="container-fluid">
+    <div class="row">
+        @switch($inscripcion->Estado)
+            @case('Activa')
+                <div class="alert alert-success text-center">Esta inscripción esta activa.</div>
+                @break
+            @case('Vencida')
+                <div class="alert alert-warning text-center">Esta inscripción ha vencido.</div>
+                @break
+            @case('Cancelada')
+                <div class="alert alert-danger text-center">Esta inscripción ha sido cancelada.</div>
+                @break
+        @endswitch
+    </div>
     <br>
-
-    <h2>Pagos de la Inscripción</h2>
-
-    <ul>
-
-        @forelse($inscripcion->pagos as $pago)
-
-            <li>
-
-                <strong>Monto:</strong>
-
-                ${{ $pago->Monto }}
-
-                <br>
-
-                <strong>Fecha:</strong>
-
-                {{ \Carbon\Carbon::parse($pago->FechaPago)->format('d/m/Y H:i') }}
-
-                <br>
-
-                <strong>Medio de Pago:</strong>
-
-                {{ $pago->MedioPago }}
-
-            </li>
-
-            <br>
-
-        @empty
-
-            <li>
-
-                No hay pagos registrados para esta inscripción.
-
-            </li>
-
-        @endforelse
-
-    </ul>
-
+    <div class="row">
+        <h5 class="col-md-12">Información sobre el Socio</h5>
+        <div class="col-md-6">
+            <strong>Nombre: </strong>{{ $inscripcion->socio?->Nombre }}
+        </div>
+        <div class="col-md-6">
+            <strong>Documento: </strong>{{ $inscripcion->socio?->DocumentoIdentidad }}
+        </div>
+    </div>
     <br>
-
-    <a href="{{ route('inscripciones.index') }}">
-        Volver a la lista de inscripciones
-    </a>
-
-</body>
-</html>
+    <div class="row">
+        <h5 class="col-md-12">Información sobre la Membresia</h5>
+        <div class="col-md-12">
+            <strong>Membresia: </strong>{{ $inscripcion->membresia?->Descripcion }}
+        </div>
+        <div class="col-md-6">
+            <strong>Fecha de Inscripción: </strong>{{ \Carbon\Carbon::parse($inscripcion->FechaInscripcion)->format('d/m/Y H:i') }}
+        </div>
+        <div class="col-md-6">
+            <strong>Fecha de Vencimiento: </strong>{{ \Carbon\Carbon::parse($inscripcion->FechaVencimiento)->format('d/m/Y H:i') }}
+        </div>
+    </div>
+    <br>
+    @if($inscripcion->pagos->count() == 0)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger text-center">No se han registrado pagos para esta inscripción.</div>
+            </div>
+        </div>
+    @else
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success text-center">Existen pagos registrados para esta inscripción.</div>
+            </div>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#pagos" aria-expanded="false" aria-controls="pagos">
+                Ver pagos asociados
+            </button>
+            @forelse($inscripcion->pagos as $pago)
+                <div class="collapse" id="pagos">
+                    <div class="card card-body">
+                        <div>
+                            <strong>Medio de Pago: </strong> {{ $pago->MedioPago }}
+                        </div>    
+                        <div>
+                            <strong>Monto: </strong> ${{ $pago->Monto }}
+                        </div>
+                        <div>
+                            <strong>Fecha: </strong> {{ \Carbon\Carbon::parse($pago->FechaPago)->format('d/m/Y H:i') }}
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="alert alert-danger text-center">No se han registrado pagos para esta inscripción.</div>
+            @endforelse
+        </div>
+    @endif
+</div>

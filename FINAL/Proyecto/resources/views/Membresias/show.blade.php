@@ -1,24 +1,20 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
-            <strong>ID:</strong>
-            {{ $membresia->MembresiaID }}
+<div class="container mt-3">
+    <div class="mb-3">
+        <div class="mb-3">
+            <label class="form-label">Descripción:</label>
+            <input disabled type="text" class="form-control" value="{{ $membresia->Descripcion }}">
+        </div>    
+        <div class="mb-3">
+            <label class="form-label">Tipo:</label>
+            <input disabled type="text" class="form-control" value="{{ $membresia->Tipo }}">
         </div>
-        <div class="col-md-6">
-            <strong>Tipo:</strong>
-            {{ $membresia->Tipo }}
+        <div class="mb-3">
+            <label class="form-label">Precio:</label>
+            <input disabled type="text" class="form-control" value="{{ $membresia->Precio }}">
         </div>
-        <div class="col-md-6">
-            <strong>Precio:</strong>
-            ${{ $membresia->Precio }}
-        </div>
-        <div class="col-md-6">
-            <strong>Cantidad de Clases Incluidas:</strong>
-            {{ $membresia->CantidadClasesIncluidas }}
-        </div>
-        <div class="col-md-6">
-            <strong>Descripción:</strong>
-            {{ $membresia->Descripcion }}
+        <div class="mb-3">
+            <label class="form-label">Cantidad de Clases Incluidas:</label>
+            <input disabled type="text" class="form-control" value="{{ $membresia->CantidadClasesIncluidas ? $membresia->CantidadClasesIncluidas : 'No cuenta con clases incluidas' }}"> 
         </div>
     </div>
 </div>

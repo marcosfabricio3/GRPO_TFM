@@ -24,17 +24,31 @@ class SocioController extends Controller
     // Guarda un socio nuevo
     public function store(Request $request)
     {
-        Socio::create([
-        'Nombre' => $request->Nombre,
-        'DocumentoIdentidad' => $request->DocumentoIdentidad,
-        'Email' => $request->Email,
-        'Telefono' => $request->Telefono,
-        'FechaNacimiento' => $request->FechaNacimiento,
-        'FechaAlta' => now(),
-        'Activo' => 1
-    ]);
+        //Controlar que el socio no se repita
+        $socio = Socio::where('DocumentoIdentidad', $request->DocumentoIdentidad)->first();
+        if ($socio) {
+            return response()->json([
+                'success' => false,
+                'message' => 'El socio con el documento de identidad "' . $request->DocumentoIdentidad . '", ya existe dentro del sistema.'],
+                409
+            );
+        }
+        try{
+            //Crear el socio
+            Socio::create([
+                'Nombre' => $request->Nombre,
+                'DocumentoIdentidad' => $request->DocumentoIdentidad,
+                'Email' => $request->Email,
+                'Telefono' => $request->Telefono,
+                'FechaNacimiento' => $request->FechaNacimiento,
+                'FechaAlta' => now(),
+                'Activo' => 1
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error al registrar al socio.', 409]);
+        }
 
-    return redirect()->route('socios.index');
+        return response()->json(['success' => true, 'message' => 'Socio creado correctamente']);
     }
 
     // Muestra un socio específico
@@ -80,7 +94,9 @@ class SocioController extends Controller
         ) {
             return response()->json([
                 'success' => false,
-                'message' => 'No se puede eliminar el socio porque tiene inscripciones o asistencias.'], 409);
+                'message' => 'No se puede eliminar el socio porque tiene inscripciones o asistencias.'],
+                409
+            );
         }
 
         $socio->delete();

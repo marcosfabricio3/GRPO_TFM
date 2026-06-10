@@ -14,7 +14,7 @@
 					<a href="{{ route('membresias.index') }}" class="nav-link px-2 @yield('membresia_active')">Membresias</a>
 				</li>
 				<li>
-					<a href="#" class="nav-link px-2">Clases</a>
+					<a href="{{ route('inscripciones.index') }}" class="nav-link px-2 @yield('inscripcion_active')">Inscripciones</a>
 				</li>
 				<li>
 					<a href="#" class="nav-link px-2">Asistencias</a>

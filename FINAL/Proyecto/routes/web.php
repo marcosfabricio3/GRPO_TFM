@@ -37,25 +37,23 @@ Route::middleware('auth')->group(function () {
     Route::put('/socios/{socio}', [SocioController::class, 'update'])->name('socios.update');
     Route::delete('/socios/{socio}', [SocioController::class, 'destroy'])->name('socios.destroy');
 
-    
+    // Membresias
+    Route::get('/membresias', [MembresiaController::class, 'index'])->name('membresias.index');
+    Route::get('/membresias/create', [MembresiaController::class, 'create'])->name('membresias.create');    
+    Route::post('/membresias', [MembresiaController::class, 'store'])->name('membresias.store');    
+    Route::get('/membresias/{membresia}', [MembresiaController::class, 'show'])->name('membresias.show');    
+    Route::get('/membresias/{membresia}/edit', [MembresiaController::class, 'edit'])->name('membresias.edit');    
+    Route::put('/membresias/{membresia}', [MembresiaController::class, 'update'])->name('membresias.update');    
+    Route::delete('/membresias/{membresia}', [MembresiaController::class, 'destroy'])->name('membresias.destroy');  
 
-// Membresias
-Route::get('/membresias', [MembresiaController::class, 'index'])->name('membresias.index');
-Route::get('/membresias/create', [MembresiaController::class, 'create'])->name('membresias.create');    
-Route::post('/membresias', [MembresiaController::class, 'store'])->name('membresias.store');    
-Route::get('/membresias/{membresia}', [MembresiaController::class, 'show'])->name('membresias.show');    
-Route::get('/membresias/{membresia}/edit', [MembresiaController::class, 'edit'])->name('membresias.edit');    
-Route::put('/membresias/{membresia}', [MembresiaController::class, 'update'])->name('membresias.update');    
-Route::delete('/membresias/{membresia}', [MembresiaController::class, 'destroy'])->name('membresias.destroy');  
-
-// Inscripciones
-Route::get('/inscripciones', [InscripcionController::class, 'index'])->name('inscripciones.index');
-Route::get('/inscripciones/create', [InscripcionController::class, 'create'])->name('inscripciones.create');
-Route::post('/inscripciones', [InscripcionController::class, 'store'])->name('inscripciones.store');
-Route::get('/inscripciones/{inscripcion}', [InscripcionController::class, 'show'])->name('inscripciones.show');
-Route::get('/inscripciones/{inscripcion}/edit', [InscripcionController::class, 'edit'])->name('inscripciones.edit');
-Route::put('/inscripciones/{inscripcion}', [InscripcionController::class, 'update'])->name('inscripciones.update');
-Route::delete('/inscripciones/{inscripcion}', [InscripcionController::class, 'destroy'])->name('inscripciones.destroy');
+    // Inscripciones
+    Route::get('/inscripciones', [InscripcionController::class, 'index'])->name('inscripciones.index');
+    Route::get('/inscripciones/create', [InscripcionController::class, 'create'])->name('inscripciones.create');
+    Route::post('/inscripciones', [InscripcionController::class, 'store'])->name('inscripciones.store');
+    Route::get('/inscripciones/{inscripcion}', [InscripcionController::class, 'show'])->name('inscripciones.show');
+    Route::get('/inscripciones/{inscripcion}/edit', [InscripcionController::class, 'edit'])->name('inscripciones.edit');
+    Route::put('/inscripciones/{inscripcion}', [InscripcionController::class, 'update'])->name('inscripciones.update');
+    Route::delete('/inscripciones/{inscripcion}', [InscripcionController::class, 'destroy'])->name('inscripciones.destroy');
 
 // Clases
 Route::get('/clases', [ClaseController::class, 'index'])->name('clases.index');

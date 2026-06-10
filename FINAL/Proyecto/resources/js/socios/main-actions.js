@@ -1,4 +1,4 @@
-import { mostrarExito, mostrarError, mostrarCarga } from "./modal-handler";
+import { mostrarExito, mostrarError, mostrarCarga } from "../modal-handler";
 
 document.addEventListener("DOMContentLoaded",() => {
     document.getElementById("modalConfirmar").addEventListener("click",ejecutarAccionModal);

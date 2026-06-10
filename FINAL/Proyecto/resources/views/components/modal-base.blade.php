@@ -8,7 +8,7 @@
             <div class="modal-body" id="modalContenido"> Cargando...</div>
             <div class="modal-footer">
                 <button type="button" id="modalCancelarBtn" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="modalConfirmar">Confirmar</button>
+                <button type="button" class="btn" id="modalConfirmar">Confirmar</button>
             </div>
         </div>
     </div>

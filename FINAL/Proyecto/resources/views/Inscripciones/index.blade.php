@@ -1,115 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Inscripciones</title>
-</head>
-<body>
-
-    <h1>Listado de Inscripciones</h1>
-
-    <a href="{{ route('inscripciones.create') }}">
-        Crear Nueva Inscripción
-    </a>
-
-    <br><br>
-
-    <ul>
-
+@extends('layouts.app')
+@section('title', 'Listado de Inscripciones')
+@section('content')
+@section('inscripcion_active', 'link-secondary')
+@vite(['resources/js/inscripciones/main-actions.js'])
+<x-nav-bar/>
+<h1>Listado de Inscripciones</h1>
+<button type="button" class="btn btn-primary" onclick="window.location='{{ route('inscripciones.create') }}'" >Registrar nueva Inscripción</button>
+<br><br>
+<table class="table table-striped table-hover table-bordered table-sm table-responsive">
+    <thead>
+        <tr>
+            <th>Socio</th>
+            <th>Membresia</th>
+            <th>Estado</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Vencimiento</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach ($inscripciones as $inscripcion)
-
-            <li>
-
-                <strong>
-                    {{ $inscripcion->socio?->Nombre }}
-                </strong>
-
-                -
-
-                {{ $inscripcion->membresia?->Tipo }}
-
-                -
-
-                {{ $inscripcion->Estado }}
-
-                <br><br>
-
-                <strong>Fecha Inicio:</strong>
-
-                {{ $inscripcion->FechaInicio }}
-
-                <br>
-
-                <strong>Fecha Vencimiento:</strong>
-
-                {{ $inscripcion->FechaVencimiento }}
-
-                <br><br>
-
-                <strong>Pagos:</strong>
-
-                <ul>
-
-                    @forelse($inscripcion->pagos as $pago)
-
-                        <li>
-
-                            ${{ $pago->Monto }}
-
-                            -
-
-                            {{ $pago->MedioPago }}
-
-                            -
-
-                            {{ \Carbon\Carbon::parse($pago->FechaPago)->format('d/m/Y') }}
-
-                        </li>
-
-                    @empty
-
-                        <li>
-
-                            No tiene pagos registrados
-
-                        </li>
-
-                    @endforelse
-
-                </ul>
-
-                <br>
-
-                <a href="{{ route('inscripciones.show', $inscripcion->InscripcionID) }}">
-                    Ver Detalles
-                </a>
-
-                <a href="{{ route('inscripciones.edit', $inscripcion->InscripcionID) }}">
-                    Editar
-                </a>
-
-                <form action="{{ route('inscripciones.destroy', $inscripcion->InscripcionID) }}"
-                      method="POST"
-                      style="display:inline;"
-                      onsubmit="return confirm('¿Eliminar esta inscripción?');">
-
-                    @csrf
-                    @method('DELETE')
-
-                    <button type="submit">
-                        Eliminar
-                    </button>
-
-                </form>
-
-            </li>
-
-            <br><hr><br>
-
+        <tr>
+            <td>{{ $inscripcion->socio->DocumentoIdentidad}} - {{ $inscripcion->socio->Nombre }}</td>
+            <td>{{ $inscripcion->membresia?->Descripcion }}</td>
+            <td>{{ $inscripcion->Estado }}</td>
+            <td>{{ $inscripcion->FechaInicio }}</td>
+            <td>{{ $inscripcion->FechaVencimiento }}</td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success abrir-modal" data-id="{{ $inscripcion->InscripcionID }}" data-url="{{ route('inscripciones.show', $inscripcion->InscripcionID) }}" data-action="" data-title="Detalle de la inscripcion" data-confirm-text="Cerrar">Ver</button>
+                    <button type="button" class="btn btn-warning abrir-modal" data-id="{{ $inscripcion->InscripcionID }}" data-url="{{ route('inscripciones.edit', $inscripcion->InscripcionID) }}" data-action="editarInscripcion" data-title="Editar inscripcion" data-confirm-text="Editar inscripcion" data-cancel-text="Cancelar">Editar</button>
+                    <button type="button" class="btn btn-danger  abrir-modal" data-id="{{ $inscripcion->InscripcionID }}" data-url="{{ route('inscripciones.show', $inscripcion->InscripcionID) }}" data-action="eliminarInscripcion" data-title="Eliminar inscripcion" data-confirm-text="Eliminar inscripcion" data-cancel-text="Cancelar" data-actionForDelete="true">Eliminar</button>
+                </div>
+            </td>
+        </tr>
         @endforeach
-
-    </ul>
-
-</body>
-</html>
+    </tbody>
+</table>
+@endsection
