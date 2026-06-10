@@ -55,14 +55,14 @@ Route::middleware('auth')->group(function () {
     Route::put('/inscripciones/{inscripcion}', [InscripcionController::class, 'update'])->name('inscripciones.update');
     Route::delete('/inscripciones/{inscripcion}', [InscripcionController::class, 'destroy'])->name('inscripciones.destroy');
 
-// Clases
-Route::get('/clases', [ClaseController::class, 'index'])->name('clases.index');
-Route::get('/clases/create', [ClaseController::class, 'create'])->name('clases.create');
-Route::post('/clases', [ClaseController::class, 'store'])->name('clases.store');
-Route::get('/clases/{clase}', [ClaseController::class, 'show'])->name('clases.show');
-Route::get('/clases/{clase}/edit', [ClaseController::class, 'edit'])->name('clases.edit');
-Route::put('/clases/{clase}', [ClaseController::class, 'update'])->name('clases.update');
-Route::delete('/clases/{clase}', [ClaseController::class, 'destroy'])->name('clases.destroy');
+    // Clases
+    Route::get('/clases', [ClaseController::class, 'index'])->name('clases.index');
+    Route::get('/clases/create', [ClaseController::class, 'create'])->name('clases.create');
+    Route::post('/clases', [ClaseController::class, 'store'])->name('clases.store');
+    Route::get('/clases/{clase}', [ClaseController::class, 'show'])->name('clases.show');
+    Route::get('/clases/{clase}/edit', [ClaseController::class, 'edit'])->name('clases.edit');
+    Route::put('/clases/{clase}', [ClaseController::class, 'update'])->name('clases.update');
+    Route::delete('/clases/{clase}', [ClaseController::class, 'destroy'])->name('clases.destroy');
 
 // Asistencias
 Route::get('/asistencias', [AsistenciaController::class, 'index'])->name('asistencias.index');

@@ -28,9 +28,28 @@ class ClaseController extends Controller
     // Guarda una clase nueva
     public function store(Request $request)
     {
-        Clase::create($request->all());
+        try {
+            //Validación de días de la semana
+            $request->validate([
+                'DiasSemana' => 'required|array|min:1',
+                'DiasSemana.*' => 'in:Lunes,Martes,Miércoles,Jueves,Viernes,Sábado,Domingo'
+            ]); 
 
-        return redirect()->route('clases.index');
+            Clase::create([
+                'Nombre' => $request->nombre,
+                'Tipo' => $request->Tipo,
+                'InstructorID' => $request->InstructorID,
+                'DiasSemana' => implode(',', $request->DiasSemana),
+                'Horario' => $request->Horario,
+                'CupoMaximo' => $request->CupoMaximo,
+                'Activa' => $request->boolean('activa') ? 1 : 0
+            ]);    
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error al crear la clase.'], 409);
+        }
+        
+        return response()->json(['success' => true, 'message' => 'Clase creada correctamente']);
+
     }
 
     // Muestra una clase específica
@@ -55,11 +74,13 @@ class ClaseController extends Controller
     // Actualiza una clase existente
     public function update(Request $request, string $id)
     {
-        $clase = Clase::findOrFail($id);
-
-        $clase->update($request->all());
-
-        return redirect()->route('clases.index');
+        try {
+            $clase = Clase::findOrFail($id);
+            $clase->update($request->all());
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error al actualizar la clase.'], 409);
+        }
+        return response()->json(['success' => true]);
     }
 
     // Elimina una clase
@@ -69,6 +90,6 @@ class ClaseController extends Controller
 
         $clase->delete();
 
-        return redirect()->route('clases.index');
+        return response()->json(['success' => true]);
     }
 }

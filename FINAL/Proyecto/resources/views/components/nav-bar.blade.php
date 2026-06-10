@@ -17,13 +17,7 @@
 					<a href="{{ route('inscripciones.index') }}" class="nav-link px-2 @yield('inscripcion_active')">Inscripciones</a>
 				</li>
 				<li>
-					<a href="#" class="nav-link px-2">Asistencias</a>
-				</li>
-				<li>
-					<a href="#" class="nav-link px-2">Pagos</a>
-				</li>
-				<li>
-					<a href="#" class="nav-link px-2">Instructores</a>
+					<a href="{{ route('clases.index') }}" class="nav-link px-2 @yield('clase_active')">Clases</a>
 				</li>
 			</ul>
 			<div class="ms-auto">

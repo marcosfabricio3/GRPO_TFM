@@ -1,61 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Clases</title>
-</head>
-<body>
-
-    <h1>Lista de Clases</h1>
-
-    <ul>
-
+@extends('layouts.app')
+@section('title', 'Listado de Clases')
+@section('content')
+@section('clase_active', 'link-secondary')
+@vite(['resources/js/clases/main-actions.js'])
+<x-nav-bar />
+<h1>Listado de Clases</h1>
+<button type="button" class="btn btn-primary" onclick="window.location='{{ route('clases.create') }}'" >Registrar nueva Clase</button>
+<br><br>
+<table class="table table-striped table-hover table-bordered table-sm table-responsive">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Instructor a cargo</th>
+            <th>Días de la semana</th>
+            <th>Horario</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach ($clases as $clase)
-
-            <li>
-
-                <strong>
-
-                    {{ $clase->Nombre }}
-
-                </strong>
-
-                <br><br>
-
-                <a href="{{ route('clases.show', $clase->ClaseID) }}">
-                    Ver
-                </a>
-
-                <a href="{{ route('clases.edit', $clase->ClaseID) }}">
-                    Editar
-                </a>
-
-                <form action="{{ route('clases.destroy', $clase->ClaseID) }}"
-                      method="POST"
-                      style="display:inline;"
-                      onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta clase?');">
-
-                    @csrf
-                    @method('DELETE')
-
-                    <button type="submit">
-                        Eliminar
-                    </button>
-
-                </form>
-
-            </li>
-
-            <br><hr><br>
-
+        <tr>
+            <td>{{ $clase->Nombre }}</td>
+            <td>{{ $clase->Tipo }}</td>
+            <td>{{ $clase->instructor->Nombre }}</td>
+            <td>{{ $clase->DiasSemana }}</td>
+            <td>{{ \Carbon\Carbon::parse($clase->Horario)->format('H:i') }}</td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success abrir-modal" data-id="{{ $clase->ClaseID }}" data-url="{{ route('clases.show', $clase->ClaseID) }}" data-action="" data-title="Detalle de la clase" data-confirm-text="Cerrar">Ver</button>
+                    <button type="button" class="btn btn-warning abrir-modal" data-id="{{ $clase->ClaseID }}" data-url="{{ route('clases.edit', $clase->ClaseID) }}" data-action="editarClase" data-title="Editar clase" data-confirm-text="Editar clase" data-cancel-text="Cancelar">Editar</button>
+                    <button type="button" class="btn btn-danger  abrir-modal" data-id="{{ $clase->ClaseID }}" data-url="{{ route('clases.show', $clase->ClaseID) }}" data-action="eliminarClase" data-title="Eliminar clase" data-confirm-text="Eliminar clase" data-cancel-text="Cancelar" data-actionForDelete="true">Eliminar</button>
+                </div>
+            </td>
         @endforeach
-
-    </ul>
-
-    <a href="{{ route('clases.create') }}">
-        Crear Nueva Clase
-    </a>
-
-</body>
-</html>
+        </tr>
+    </tbody>
+</table>
+@endsection

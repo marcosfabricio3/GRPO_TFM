@@ -1,59 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles de la Clase</title>
-</head>
-<body>
-
-    <h1>Detalles de la Clase</h1>
-
-    <p>
-        <strong>ID:</strong>
-        {{ $clase->ClaseID }}
-    </p>
-
-    <p>
-        <strong>Nombre:</strong>
-        {{ $clase->Nombre }}
-    </p>
-
-    <p>
-        <strong>Tipo:</strong>
-        {{ $clase->Tipo }}
-    </p>
-
-    <p>
-        <strong>Días:</strong>
-        {{ $clase->DiasSemana }}
-    </p>
-
-    <p>
-        <strong>Horario:</strong>
-        {{ $clase->Horario }}
-    </p>
-
-    <p>
-        <strong>Cupo Máximo:</strong>
-        {{ $clase->CupoMaximo }}
-    </p>
-
-    <p>
-        <strong>Activa:</strong>
-        {{ $clase->Activa ? 'Sí' : 'No' }}
-    </p>
-
-    <p>
-        <strong>Instructor:</strong>
-        {{ $clase->instructor?->Nombre }}   
-    </p>
-
-    <br>
-
-    <a href="{{ route('clases.index') }}">
-        Volver a la lista de clases
-    </a>
-
-</body>
-</html>
+<div class="container mt-3">
+    <div class="mb-3">
+        <div class="mb-3">
+            <label class="form-label">Nombre:</label>
+            <input disabled type="text" class="form-control" value="{{ $clase->Nombre }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tipo:</label>
+            <input disabled type="text" class="form-control" value="{{ $clase->Tipo }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Instructor:</label>
+            <input disabled type="text" class="form-control" value="{{ $clase->instructor?->Nombre }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Días:</label>
+            <input disabled type="text" class="form-control" value="{{ $clase->DiasSemana }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Horario:</label>
+            <input disabled type="text" class="form-control" value="{{ \Carbon\Carbon::parse($clase->Horario)->format('H:i') }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Cupo Máximo:</label>
+            <input disabled type="text" class="form-control" value="{{ $clase->CupoMaximo }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Activa:</label>
+            <input disabled type="text" class="form-control" value="{{ $clase->Activa ? 'Si' : 'No' }}">
+        </div>
+    </div>
+</div>

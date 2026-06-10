@@ -81,7 +81,7 @@ class SocioController extends Controller
 
         $socio->save();
 
-        return response()->json(['success' => true]);    
+        return response()->json(['success' => true]);
     }
 
     // Elimina un socio
