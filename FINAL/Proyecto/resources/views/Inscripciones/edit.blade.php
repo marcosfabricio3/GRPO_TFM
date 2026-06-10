@@ -39,7 +39,7 @@
         <select class="form-select" id="Estado" name="Estado" value="{{ $inscripcion->Estado }}" required>
             <option value="Activa" {{ $inscripcion->Estado == 'Activa' ? 'selected' : '' }}>Activa</option>
             <option value="Vencida" {{ $inscripcion->Estado == 'Vencida' ? 'selected' : '' }}>Vencida</option>
-            <option value="Suspendida" {{ $inscripcion->Estado == 'Suspendida' ? 'selected' : '' }}>Suspendida</option>
+            <option value="Cancelada" {{ $inscripcion->Estado == 'Cancelada' ? 'selected' : '' }}>Cancelada</option>
         </select>
     </div>
 </form>

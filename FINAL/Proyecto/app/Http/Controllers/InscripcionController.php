@@ -35,13 +35,12 @@ class InscripcionController extends Controller
         if ($request->boolean('RegistrarPago')) {
             $request->validate(
                 [
-                    'Monto' => 'required|integer|min:1',
+                    'Monto' => 'required|min:1',
                     'FechaPago' => 'required|date',
                     'MedioPago' => 'required'
                 ],
                 [
                     'Monto.required' => 'Debe ingresar el monto del pago inicial.',
-                    'Monto.integer' => 'El monto debe ser un número entero.',
                     'Monto.min' => 'El monto debe ser mayor a 0.',
 
                     'FechaPago.required' => 'Debe ingresar la fecha del pago.',
@@ -52,12 +51,16 @@ class InscripcionController extends Controller
             );
         }
         // Verifica si el socio ya tiene una inscripción activa
-        $existeInscripcionActiva = Inscripcion::where('SocioID',$request->SocioID)->first();
+        $existeInscripcionActiva = Inscripcion::where('SocioID',$request->SocioID)->where('Estado','Activa')->first();
 
         // Si ya tiene una inscripción activa
         if ($existeInscripcionActiva) {
-            return response()->json(['success' => false, 'message' => 'El socio ya tiene una inscripción activa.'], 409);
+            //Verificar si la actual solicitud tiene el estado activa
+            if ($request->Estado == 'Activa') {
+                return response()->json(['success' => false, 'message' => 'El socio ya tiene una inscripción activa.'], 409);    
+            }
         }
+
         try{
         // Crear inscripción
         $inscripcion = Inscripcion::create([
@@ -115,6 +118,16 @@ class InscripcionController extends Controller
     {
         try{
             $inscripcion = Inscripcion::findOrFail($id);
+            // Verifica si el socio ya tiene una inscripción activa
+            $existeInscripcionActiva = Inscripcion::where('SocioID',$request->SocioID)->where('Estado','Activa')->first();
+            // Si ya tiene una inscripción activa
+            if ($existeInscripcionActiva) {
+                //Verificar si la actual solicitud tiene el estado activa
+                if ($request->Estado == 'Activa') {
+                    return response()->json(['success' => false, 'message' => 'El socio ya tiene una inscripción activa.'], 409);    
+                }
+            }
+
             $inscripcion->update([
                 'SocioID' => $request->SocioID,
                 'MembresiaID' => $request->MembresiaID,

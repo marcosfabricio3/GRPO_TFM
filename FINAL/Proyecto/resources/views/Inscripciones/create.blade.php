@@ -39,7 +39,7 @@
             <select class="form-select" id="Estado" name="Estado" required>
                 <option value="Activa">Activa</option>
                 <option value="Vencida">Vencida</option>
-                <option value="Suspendida">Suspendida</option>
+                <option value="Cancelada">Cancelada</option>
             </select>
         </div>
         <div class="mb-3 form-check form-switch" >

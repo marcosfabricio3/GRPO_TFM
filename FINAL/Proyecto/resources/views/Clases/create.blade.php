@@ -14,14 +14,8 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="Tipo">Tipo</label>
-            <select class="form-select" id="Tipo" name="Tipo" required>
-                <option value="">--Seleccione un tipo de clase--</option>
-                <option value="Musculación">Musculación</option>
-                <option value="Yoga">Yoga</option>
-                <option value="Crossfit">Crossfit</option>
-                <option value="Pilates">Pilates</option>
-            </select>
-        </div>
+            <input type="text" class="form-control" id="Tipo" name="Tipo" placeholder="Ingrese el tipo de la clase" required>
+       </div>
         <div class="mb-3">
             <label class="form-label" for="InstructorID">Instructor</label>
             <select class="form-select" id="InstructorID" name="InstructorID" required>

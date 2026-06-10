@@ -6,13 +6,7 @@
         </div>
         <div class="mb-3">
             <label for="Tipo" class="form-label">Tipo:</label>
-            <select class="form-select" id="Tipo" name="Tipo" required>
-                <option value="">--Seleccione un tipo de clase--</option>
-                <option value="Musculación" @if ($clase->Tipo == 'Musculación') selected @endif>Musculación</option>
-                <option value="Yoga" @if ($clase->Tipo == 'Yoga') selected @endif>Yoga</option>
-                <option value="Crossfit" @if ($clase->Tipo == 'Crossfit') selected @endif>Crossfit</option>
-                <option value="Pilates" @if ($clase->Tipo == 'Pilates') selected @endif>Pilates</option>
-            </select>
+            <input type="text" class="form-control" id="Tipo" name="Tipo" value="{{ $clase->Tipo }}" placeholder="Ingrese el tipo de la clase" required>
         </div>
         <div class="mb-3">
             <label for="InstructorID" class="form-label">Instructor:</label>
