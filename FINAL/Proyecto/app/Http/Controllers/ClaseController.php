@@ -76,7 +76,20 @@ class ClaseController extends Controller
     {
         try {
             $clase = Clase::findOrFail($id);
-            $clase->update($request->all());
+            //Validación de días de la semana
+            $request->validate([
+                'DiasSemana' => 'required|array|min:1',
+                'DiasSemana.*' => 'in:Lunes,Martes,Miércoles,Jueves,Viernes,Sábado,Domingo'
+            ]); 
+            $clase->update([
+                'Nombre' => $request->Nombre,
+                'Tipo' => $request->Tipo,
+                'InstructorID' => $request->InstructorID,
+                'DiasSemana' => implode(',', $request->DiasSemana),
+                'Horario' => $request->Horario,
+                'CupoMaximo' => $request->CupoMaximo,
+                'Activa' => $request->boolean('activa') ? 1 : 0
+            ]); 
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Error al actualizar la clase.'], 409);
         }
